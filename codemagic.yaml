@@ -1,0 +1,19 @@
+workflows:
+  ios:
+    name: iOS Ad Hoc Build
+    environment:
+      flutter: stable
+      xcode: latest
+      vars:
+        CM_BUILD_TYPE: adhoc
+        CM_EXPORT_METHOD: ad-hoc
+    triggering:
+      events:
+        - push
+    scripts:
+      - name: Build iPA
+        script: |
+          flutter pub get
+          flutter build ipa --release
+    artifacts:
+      - build/ios/ipa/*.ipa
